@@ -1,0 +1,106 @@
+{
+  "kind": "generateblocks/design-system",
+  "version": 1,
+  "globalStyles": [
+    {
+      "kind": "generateblocks/global-style",
+      "version": 1,
+      "selector": ":root",
+      "isPartial": false,
+      "styles": {
+        "--direct-color": "#aa0000",
+        "--reference-color": "var(--wp--preset--color--background-accent)",
+        "--fixed-spacing": "2rem",
+        "--fluid-spacing": "clamp(1rem, calc(-0.174rem + 5.217vw), 4rem)",
+        "--sample-font-family": "\"Inter\", sans-serif"
+      }
+    }
+  ],
+  "designTokens": [
+    {
+      "name": "--direct-color",
+      "type": "color",
+      "label": "Direct Color",
+      "scope": [
+        "color",
+        "backgroundColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor"
+      ],
+      "category": "Theme Variables",
+      "display": {
+        "control": "colorPicker"
+      }
+    },
+    {
+      "name": "--reference-color",
+      "type": "color",
+      "label": "Reference Color",
+      "scope": [
+        "color",
+        "backgroundColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor"
+      ],
+      "category": "Theme Variables",
+      "display": {
+        "control": "colorPicker"
+      }
+    },
+    {
+      "name": "--fixed-spacing",
+      "type": "unit",
+      "label": "Fixed Spacing",
+      "scope": [
+        "marginTop",
+        "marginRight",
+        "marginBottom",
+        "marginLeft",
+        "columnGap",
+        "rowGap",
+        "paddingLeft",
+        "paddingBottom",
+        "paddingRight",
+        "paddingTop"
+      ],
+      "category": "",
+      "display": {
+        "control": "unitControl"
+      }
+    },
+    {
+      "name": "--fluid-spacing",
+      "type": "unit",
+      "label": "Fluid Spacing",
+      "scope": [
+        "paddingTop",
+        "paddingRight",
+        "paddingBottom",
+        "paddingLeft",
+        "marginTop",
+        "marginRight",
+        "marginBottom",
+        "marginLeft",
+        "columnGap",
+        "rowGap"
+      ],
+      "category": "",
+      "display": {
+        "control": "unitControl"
+      }
+    },
+    {
+      "name": "--sample-font-family",
+      "type": "text",
+      "label": "Sample Font Family",
+      "scope": [
+        "fontFamily"
+      ],
+      "category": ""
+    }
+  ]
+}

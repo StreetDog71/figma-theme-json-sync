@@ -1,0 +1,6 @@
+.DS_Store
+node_modules/
+# local sync output
+.figma-sync-state.json
+generateblocks-design-system-*.json
+generateblocks-tokens-*.css

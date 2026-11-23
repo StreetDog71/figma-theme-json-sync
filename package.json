@@ -1,0 +1,10 @@
+{
+  "name": "figma-theme-json-sync",
+  "version": "0.1.0",
+  "description": "Claude Code skill: sync Figma variables into a WordPress theme.json (and optional GenerateBlocks Pro design tokens)",
+  "license": "MIT",
+  "type": "module",
+  "private": true,
+  "engines": { "node": ">=18" },
+  "scripts": { "test": "node tests/smoke.mjs" }
+}

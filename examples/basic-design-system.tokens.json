@@ -1,0 +1,387 @@
+{
+	"source": {
+		"via": "figma-variables-panel",
+		"fileKey": "EXAMPLEFILEKEY"
+	},
+	"collections": [
+		{
+			"name": "Color primitives",
+			"modes": [
+				"Default"
+			],
+			"variables": [
+				{
+					"name": "neutral/0",
+					"type": "color",
+					"values": {
+						"Default": "#FFFFFF"
+					}
+				},
+				{
+					"name": "neutral/50",
+					"type": "color",
+					"values": {
+						"Default": "#F4F4F7"
+					}
+				},
+				{
+					"name": "neutral/600",
+					"type": "color",
+					"values": {
+						"Default": "#616373"
+					}
+				},
+				{
+					"name": "neutral/900",
+					"type": "color",
+					"values": {
+						"Default": "#1A1B26"
+					}
+				},
+				{
+					"name": "violet/100",
+					"type": "color",
+					"values": {
+						"Default": "#EDE8FF"
+					}
+				},
+				{
+					"name": "violet/600",
+					"type": "color",
+					"values": {
+						"Default": "#5C40CC"
+					}
+				}
+			]
+		},
+		{
+			"name": "Colors",
+			"modes": [
+				"Default"
+			],
+			"variables": [
+				{
+					"name": "background/canvas",
+					"type": "color",
+					"values": {
+						"Default": {
+							"alias": "neutral/50"
+						}
+					}
+				},
+				{
+					"name": "background/surface",
+					"type": "color",
+					"values": {
+						"Default": {
+							"alias": "neutral/0"
+						}
+					}
+				},
+				{
+					"name": "background/accent",
+					"type": "color",
+					"values": {
+						"Default": {
+							"alias": "violet/600"
+						}
+					}
+				},
+				{
+					"name": "background/accent-subtle",
+					"type": "color",
+					"values": {
+						"Default": {
+							"alias": "violet/100"
+						}
+					}
+				},
+				{
+					"name": "text/primary",
+					"type": "color",
+					"values": {
+						"Default": {
+							"alias": "neutral/900"
+						}
+					}
+				},
+				{
+					"name": "text/secondary",
+					"type": "color",
+					"values": {
+						"Default": {
+							"alias": "neutral/600"
+						}
+					}
+				},
+				{
+					"name": "text/accent",
+					"type": "color",
+					"values": {
+						"Default": {
+							"alias": "violet/600"
+						}
+					}
+				},
+				{
+					"name": "border/accent",
+					"type": "color",
+					"values": {
+						"Default": {
+							"alias": "violet/600"
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Foundations",
+			"modes": [
+				"Desktop",
+				"Mobile"
+			],
+			"variables": [
+				{
+					"name": "font-size/12",
+					"type": "float",
+					"values": {
+						"Desktop": 12,
+						"Mobile": 12
+					}
+				},
+				{
+					"name": "font-size/14",
+					"type": "float",
+					"values": {
+						"Desktop": 14,
+						"Mobile": 14
+					}
+				},
+				{
+					"name": "font-size/16",
+					"type": "float",
+					"values": {
+						"Desktop": 16,
+						"Mobile": 16
+					}
+				},
+				{
+					"name": "font-size/18",
+					"type": "float",
+					"values": {
+						"Desktop": 18,
+						"Mobile": 18
+					}
+				},
+				{
+					"name": "font-size/20",
+					"type": "float",
+					"values": {
+						"Desktop": 20,
+						"Mobile": 20
+					}
+				},
+				{
+					"name": "font-size/24",
+					"type": "float",
+					"values": {
+						"Desktop": 24,
+						"Mobile": 24
+					}
+				},
+				{
+					"name": "font-size/32",
+					"type": "float",
+					"values": {
+						"Desktop": 32,
+						"Mobile": 32
+					}
+				},
+				{
+					"name": "font-size/40",
+					"type": "float",
+					"values": {
+						"Desktop": 40,
+						"Mobile": 40
+					}
+				},
+				{
+					"name": "font-size/48",
+					"type": "float",
+					"values": {
+						"Desktop": 48,
+						"Mobile": 48
+					}
+				},
+				{
+					"name": "font-size/64",
+					"type": "float",
+					"values": {
+						"Desktop": 64,
+						"Mobile": 64
+					}
+				},
+				{
+					"name": "spacing/0",
+					"type": "float",
+					"values": {
+						"Desktop": 0,
+						"Mobile": 0
+					}
+				},
+				{
+					"name": "spacing/2",
+					"type": "float",
+					"values": {
+						"Desktop": 2,
+						"Mobile": 2
+					}
+				},
+				{
+					"name": "spacing/4",
+					"type": "float",
+					"values": {
+						"Desktop": 4,
+						"Mobile": 4
+					}
+				},
+				{
+					"name": "spacing/8",
+					"type": "float",
+					"values": {
+						"Desktop": 8,
+						"Mobile": 8
+					}
+				},
+				{
+					"name": "spacing/12",
+					"type": "float",
+					"values": {
+						"Desktop": 12,
+						"Mobile": 12
+					}
+				},
+				{
+					"name": "spacing/16",
+					"type": "float",
+					"values": {
+						"Desktop": 16,
+						"Mobile": 16
+					}
+				},
+				{
+					"name": "spacing/24",
+					"type": "float",
+					"values": {
+						"Desktop": 24,
+						"Mobile": 24
+					}
+				},
+				{
+					"name": "spacing/32",
+					"type": "float",
+					"values": {
+						"Desktop": 32,
+						"Mobile": 16
+					}
+				},
+				{
+					"name": "spacing/40",
+					"type": "float",
+					"values": {
+						"Desktop": 40,
+						"Mobile": 20
+					}
+				},
+				{
+					"name": "spacing/48",
+					"type": "float",
+					"values": {
+						"Desktop": 48,
+						"Mobile": 24
+					}
+				},
+				{
+					"name": "spacing/64",
+					"type": "float",
+					"values": {
+						"Desktop": 64,
+						"Mobile": 32
+					}
+				},
+				{
+					"name": "spacing/96",
+					"type": "float",
+					"values": {
+						"Desktop": 96,
+						"Mobile": 48
+					}
+				},
+				{
+					"name": "radius/0",
+					"type": "float",
+					"values": {
+						"Desktop": 0,
+						"Mobile": 0
+					}
+				},
+				{
+					"name": "radius/2",
+					"type": "float",
+					"values": {
+						"Desktop": 2,
+						"Mobile": 2
+					}
+				},
+				{
+					"name": "radius/4",
+					"type": "float",
+					"values": {
+						"Desktop": 4,
+						"Mobile": 4
+					}
+				},
+				{
+					"name": "radius/8",
+					"type": "float",
+					"values": {
+						"Desktop": 8,
+						"Mobile": 8
+					}
+				},
+				{
+					"name": "radius/12",
+					"type": "float",
+					"values": {
+						"Desktop": 12,
+						"Mobile": 12
+					}
+				},
+				{
+					"name": "radius/16",
+					"type": "float",
+					"values": {
+						"Desktop": 16,
+						"Mobile": 16
+					}
+				},
+				{
+					"name": "radius/24",
+					"type": "float",
+					"values": {
+						"Desktop": 24,
+						"Mobile": 24
+					}
+				},
+				{
+					"name": "radius/full",
+					"type": "float",
+					"values": {
+						"Desktop": 9999,
+						"Mobile": 9999
+					}
+				}
+			]
+		}
+	]
+}
