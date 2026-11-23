@@ -110,7 +110,7 @@ Optional `figma-sync.config.json` next to `theme.json`:
   "fluid": { "minMode": "Mobile", "maxMode": "Desktop", "minViewport": 320, "maxViewport": 1200 },
   "rootFontSize": 16,
   "rules": { "fontSizes": { "unit": "rem" }, "palette": { "collections": ["Colors"] } },
-  "generateblocks": { "outDir": "../../gb-tokens", "mode": "values" }
+  "generateblocks": { "outDir": "../../gb-tokens", "mode": "alias" }
 }
 ```
 
