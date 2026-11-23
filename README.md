@@ -1,4 +1,4 @@
-# figma-theme-json-sync
+# Figma to WordPress theme.json Claude Code skill
 
 A [Claude Code](https://claude.com/claude-code) skill that syncs the **variables of a Figma file** into a
 **WordPress block theme's `theme.json`**, and optionally into **GenerateBlocks Pro design tokens**.
