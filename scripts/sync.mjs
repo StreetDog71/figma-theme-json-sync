@@ -376,12 +376,14 @@ function scanRefs(dir, themePath, mergedText, merged, collections) {
 		missing.get(k).add(path.relative(dir, file));
 	};
 	const skip = new Set(['node_modules', 'vendor', '.git', 'build', 'dist']);
+	// our own GenerateBlocks exports are snapshots, not references used by the theme
+	const gbExport = /^generateblocks-(design-system|tokens)(-\d{8}-\d{6})?\.(json|css)$/;
 	(function walk(d) {
 		for (const ent of fs.readdirSync(d, { withFileTypes: true })) {
 			const fp = path.join(d, ent.name);
 			if (ent.isDirectory()) { if (!skip.has(ent.name)) walk(fp); continue; }
 			const ext = path.extname(ent.name);
-			if (!['.json', '.html', '.php', '.css'].includes(ext) || ent.name.startsWith('.')) continue;
+			if (!['.json', '.html', '.php', '.css'].includes(ext) || ent.name.startsWith('.') || gbExport.test(ent.name)) continue;
 			if (fs.statSync(fp).size > 2e6) continue;
 			const text = fp === themePath ? mergedText : fs.readFileSync(fp, 'utf8');
 			for (const m of text.matchAll(/var:preset\|(color|spacing|font-size|font-family)\|([\w-]+)/g)) note(m[1], m[2], fp);
@@ -503,7 +505,8 @@ function tokensToSource(tokens, rules, collections, userCfg) {
 			seen.add(e);
 			return resolve(t, wanted, seen);
 		}
-		return val;
+		// Figma stores numbers as 32-bit floats (1.1 reads as 1.100000023841858)
+		return typeof val === 'number' ? +val.toFixed(4) : val;
 	};
 
 	const source = {}, stats = new Map(), excluded = new Map(), unmapped = [];
