@@ -197,6 +197,14 @@ class Doc {
 			this.splice(a.start, a.end, `[${this.eol}${ind}${this.ser(v, ind)}${this.eol}${base}]`);
 		}
 	}
+	// Put the items of the array/object at `p` in the order `perm` (old indexes). Each item's text moves
+	// intact into another item's slot, so separators and whitespace stay where they are.
+	permute(p, perm) {
+		const n = locate(parseAst(this.text), p).entry.value;
+		const slots = n.type === 'object' ? n.members.map((m) => [m.keyStart, m.value.end]) : n.elements.map((e) => [e.start, e.end]);
+		const raw = slots.map(([a, b]) => this.text.slice(a, b));
+		for (let i = slots.length - 1; i >= 0; i--) this.splice(slots[i][0], slots[i][1], raw[perm[i]]);
+	}
 	remove(p) {
 		const loc = locate(parseAst(this.text), p);
 		if (!loc.found) return;
@@ -341,6 +349,27 @@ function planMap(c, srcObj, tgtVal, prev, ops, log, o) {
 	}
 	if (extras.length) log.push({ sym: '?', coll: c.name, msg: `only in theme.json, kept (--prune removes): ${extras.join(', ')}` });
 	return next;
+}
+
+// Entries that come from Figma follow Figma's order; theme-only entries go after them, in their own order.
+function reorder(doc, source, collections, log) {
+	for (const c of collections) {
+		const src = getPath(source, c.path);
+		if (src === undefined) continue;
+		const node = locate(parseAst(doc.text), c.path);
+		if (!node.found) continue;
+		const n = node.entry.value;
+		const isMap = c.type === 'map';
+		if (n.type !== (isMap ? 'object' : 'array')) continue;
+		const keys = isMap ? n.members.map((m) => m.key) : getPath(doc.value(), c.path).map((e) => e?.[c.key]);
+		const wanted = isMap ? Object.keys(src) : src.map((e) => e?.[c.key]);
+		const rank = new Map(wanted.map((k, i) => [k, i]));
+		const r = (i) => rank.get(keys[i]) ?? wanted.length;
+		const perm = keys.map((_, i) => i).sort((a, b) => r(a) - r(b) || a - b);
+		if (perm.every((from, to) => from === to)) continue;
+		doc.permute(c.path, perm);
+		log.push({ sym: '^', coll: c.name, msg: 'reordered to match Figma' });
+	}
 }
 
 function applyOp(doc, op) {
@@ -667,7 +696,12 @@ const { ops, log, next } = plan(source, target, collections, state, opt);
 
 // Apply in memory, then verify before anything touches disk.
 const doc = new Doc(targetText);
-try { for (const op of ops) applyOp(doc, op); } catch (e) { die(`internal error while editing, nothing written: ${e.message}`); }
+const order = userCfg.order ?? 'figma';
+if (!['figma', 'theme'].includes(order)) die(`config "order" must be "figma" or "theme", got "${order}"`);
+try {
+	for (const op of ops) applyOp(doc, op);
+	if (order === 'figma') reorder(doc, source, collections, log);
+} catch (e) { die(`internal error while editing, nothing written: ${e.message}`); }
 let merged;
 try { merged = JSON.parse(doc.text); } catch (e) { die(`internal error, result is not valid JSON, nothing written: ${e.message}`); }
 const stripManaged = (obj) => { const c = structuredClone(obj); collections.forEach((x) => delPath(c, x.path)); return JSON.stringify(c); };
@@ -675,7 +709,7 @@ if (stripManaged(target) !== stripManaged(merged)) die('safety check failed: con
 if (plan(source, merged, collections, state, opt).ops.length) die('safety check failed: result does not converge on the source. Nothing written.');
 
 // Report
-const sym = { '+': 'add', '~': 'change', '-': 'remove', '!': 'conflict', '=': 'local edit', '?': 'unmanaged', '.': 'skip' };
+const sym = { '+': 'add', '~': 'change', '-': 'remove', '!': 'conflict', '=': 'local edit', '?': 'unmanaged', '.': 'skip', '^': 'reorder' };
 for (const c of collections) {
 	const lines = log.filter((l) => l.coll === c.name);
 	if (!lines.length) continue;

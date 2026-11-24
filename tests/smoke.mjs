@@ -52,4 +52,28 @@ const report = execFileSync('node', [sync, '--theme', theme2, '--tokens', noisy,
 assert.equal(JSON.parse(fs.readFileSync(theme2, 'utf8')).settings.custom.lineHeight.heading, 1.1, 'rounded');
 assert.ok(report.includes('from-theme'), 'real reference reported');
 assert.ok(!report.includes('from-export'), 'export ignored');
+// order follows Figma; theme-only entries go last; "order": "theme" opts out
+const ordDir = path.join(dir, 'order');
+fs.mkdirSync(ordDir);
+const theme3 = path.join(ordDir, 'theme.json');
+const before = '{\n  "settings": {\n    "color": {\n      "palette": [\n        { "slug": "mine", "name": "Mine", "color": "#000000" },\n        { "slug": "b", "name": "B", "color": "#222222" }\n      ]\n    },\n    "custom": { "lineHeight": { "two": 2, "one": 1 } }\n  }\n}\n';
+const ordTokens = path.join(ordDir, 't.json');
+const col = (n, v) => ({ name: n, type: 'color', values: { Default: v } });
+const num = (n, v) => ({ name: n, type: 'float', values: { Default: v } });
+fs.writeFileSync(ordTokens, JSON.stringify({ collections: [{ name: 'Colors', modes: ['Default'], variables: [col('a', '#111111'), col('b', '#222222'), col('c', '#333333'), num('line-height/one', 1), num('line-height/two', 2)] }] }));
+const sync3 = () => execFileSync('node', [sync, '--theme', theme3, '--tokens', ordTokens, '--apply'], { encoding: 'utf8' });
+const read3 = () => JSON.parse(fs.readFileSync(theme3, 'utf8')).settings;
+fs.writeFileSync(theme3, before);
+sync3();
+assert.deepEqual(read3().color.palette.map((e) => e.slug), ['a', 'b', 'c', 'mine'], 'figma order');
+assert.deepEqual(Object.keys(read3().custom.lineHeight), ['one', 'two'], 'map order');
+assert.ok(fs.readFileSync(theme3, 'utf8').includes('{ "slug": "mine", "name": "Mine", "color": "#000000" }'), 'entry text moves intact');
+const ordered = fs.readFileSync(theme3, 'utf8');
+assert.ok(!sync3().includes('reordered'), 'order is stable');
+assert.equal(fs.readFileSync(theme3, 'utf8'), ordered);
+fs.rmSync(path.join(ordDir, '.figma-sync-state.json'));
+fs.writeFileSync(theme3, before);
+fs.writeFileSync(path.join(ordDir, 'figma-sync.config.json'), '{ "order": "theme" }');
+sync3();
+assert.deepEqual(read3().color.palette.map((e) => e.slug), ['mine', 'b', 'a', 'c'], 'theme order');
 console.log('smoke test passed');

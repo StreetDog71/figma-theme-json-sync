@@ -62,16 +62,21 @@ Names: `slug` comes from the variable path, `name` is the title-cased slug (nume
 
 | Symbol | Meaning |
 |---|---|
-| `+` | added (new array entries are appended at the end) |
+| `+` | added |
 | `~` | value updated from Figma |
 | `-` | removed: deleted in Figma (it was in the state file), or `--prune` |
 | `?` | exists only in theme.json (the theme's own tokens); kept |
 | `=` | edited in theme.json since the last sync, Figma unchanged: hand edit kept |
 | `!` | CONFLICT, changed on both sides since the last sync: skipped. `--force` makes Figma win |
 | `.` | collection not present in the tokens, left alone |
+| `^` | entries reordered to match Figma |
 
 ## Behaviour to know about
 
+- **Order follows Figma.** Entries that come from Figma are listed in the order of the Figma variables;
+  entries that exist only in theme.json come after them, in their own order. Each entry's text moves
+  unchanged. Manual reordering of synced entries is therefore undone on the next sync; set
+  `"order": "theme"` in the config to keep the existing order (new entries are then appended at the end).
 - **First sync (no state file):** where a slug exists on both sides with a different value, Figma wins
   (e.g. Ollie's `full` radius `100rem` becomes `9999px`). The dry run shows this before anything is written.
 - **Theme's own tokens stay** (Frost's `base`, `contrast`...) unless `--prune`. Pruning can orphan
@@ -113,6 +118,7 @@ naming, mapping, caveats (import only adds missing tokens; update values via CSS
   "mode": "Default",
   "fluid": { "minMode": "Mobile", "maxMode": "Desktop", "minViewport": 320, "maxViewport": 1200 },
   "rootFontSize": 16,
+  "order": "figma",
   "rules": {
     "fontSizes": { "unit": "px" },
     "palette": { "collections": ["Colors", "Color primitives"] },

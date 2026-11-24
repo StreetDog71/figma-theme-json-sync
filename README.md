@@ -86,6 +86,11 @@ Without `--apply` nothing is written (theme.json, state file and GenerateBlocks 
 Naming conventions, report symbols (`+ ~ - ? = !`), first-sync behaviour and the fluid maths are documented in
 [SKILL.md](SKILL.md).
 
+## Order
+
+Presets are listed in the same order as the Figma variables. Entries that exist only in `theme.json` come after them.
+To keep the order `theme.json` already has (new entries appended at the end), set `"order": "theme"` in the config.
+
 ## Fluid values
 
 When a collection has modes named **Mobile** and **Desktop**:
@@ -110,6 +115,7 @@ Optional `figma-sync.config.json` next to `theme.json`:
 {
   "fluid": { "minMode": "Mobile", "maxMode": "Desktop", "minViewport": 320, "maxViewport": 1200 },
   "rootFontSize": 16,
+  "order": "figma",
   "rules": { "fontSizes": { "unit": "rem" }, "palette": { "collections": ["Colors"] } },
   "generateblocks": { "outDir": "../../gb-tokens", "mode": "alias" }
 }
