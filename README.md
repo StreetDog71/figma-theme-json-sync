@@ -98,7 +98,8 @@ Fluid font sizes need `settings.typography.fluid` enabled in the theme; the repo
 ## GenerateBlocks Pro design tokens (optional)
 
 Add `--gb-out <dir>` (or `generateblocks.outDir` in the config) to also generate a GenerateBlocks design-system import
-file and a CSS Mode snippet, both timestamped so earlier exports are never overwritten. You import the file by hand in
+file and a CSS Mode snippet (font sizes, spacing, radius, font families; colors are skipped because GenerateBlocks already
+reads the theme colors), both timestamped so earlier exports are never overwritten. You import the file by hand in
 the GenerateBlocks Design dashboard. See [references/generateblocks-tokens.md](references/generateblocks-tokens.md).
 
 ## Configuration

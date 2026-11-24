@@ -22,17 +22,18 @@ turns the GenerateBlocks output on without the flag). The flag overrides the con
 
 | Mode | Token value | Notes |
 |---|---|---|
-| `values` (default) | literal: `#5c40cc`, `0.75rem`, `8px` | Color swatches and pickers work in the GenerateBlocks UI |
-| `alias` | `var(--wp--preset--color--background-accent)` | theme.json stays the single source of truth, so value changes in Figma reach GenerateBlocks through theme.json without touching the tokens. The user confirmed these work in the editor and on the frontend, but the swatch preview in the token panel stays blank. Radius has no verified preset variable, so radius stays literal |
+| `values` (default) | literal: `0.75rem`, `8px` | |
+| `alias` | `var(--wp--preset--spacing--8)` | theme.json stays the single source of truth, so value changes in Figma reach GenerateBlocks through theme.json without touching the tokens. Radius has no verified preset variable, so radius stays literal |
 
 ## Naming and mapping
 
-Variable name: `--<prefix><kind>-<slug>`, for example `--color-background-accent`, `--font-size-16`,
+**Colors are not generated:** GenerateBlocks already offers the theme.json colors in its color picker.
+
+Variable name: `--<prefix><kind>-<slug>`, for example `--font-size-16`,
 `--spacing-8`, `--radius-full`, `--font-family-heading`.
 
 | Collection | kind | type | control | default category | scope |
 |---|---|---|---|---|---|
-| palette | `color` | `color` | `colorPicker` | Colors | `color`, `backgroundColor`, 4 border colors (seen in a real export) |
 | fontSizes | `font-size` | `unit` | `unitControl` | Typography | `fontSize` (inferred) |
 | spacingSizes | `spacing` | `unit` | `unitControl` | Spacing | margins, paddings, `columnGap`, `rowGap` (seen in a real export) |
 | radiusSizes | `radius` | `unit` | `unitControl` | Radius | 4 `border*Radius` corners (inferred) |
@@ -56,8 +57,8 @@ preset, which already carries the fluid value.
     "outDir": "../../gb-tokens",
     "mode": "values",
     "prefix": "",
-    "include": ["palette", "spacingSizes"],
-    "categories": { "palette": "Theme Variables" },
+    "include": ["fontSizes", "spacingSizes"],
+    "categories": { "spacingSizes": "Theme Variables" },
     "scopes": { "fontSizes": ["fontSize", "lineHeight"] }
   }
 }

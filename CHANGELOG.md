@@ -6,3 +6,4 @@
 - Fluid values from Mobile/Desktop modes (`fluid` for font sizes, `clamp()` for everything else).
 - Reading Figma through the Figma MCP (`use_figma`, read-only script) with a Chrome fallback; no plugin, no Enterprise plan.
 - Optional GenerateBlocks Pro design tokens (timestamped import JSON + CSS Mode snippet), output folder configurable.
+  Colors are excluded: GenerateBlocks already reads the theme colors.

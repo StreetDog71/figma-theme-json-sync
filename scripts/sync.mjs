@@ -581,11 +581,9 @@ function setIn(o, p, v) { p.forEach((k, i) => { if (i === p.length - 1) o[k] = v
 // designTokens list with type/label/scope/category/display. `scope` lists camel-case CSS
 // properties. Color and spacing scopes and the controls were seen in a real export; the
 // fontSize and radius scopes follow the same convention but have not been seen in one.
-const GB_COLOR_SCOPE = ['color', 'backgroundColor', 'borderTopColor', 'borderRightColor', 'borderBottomColor', 'borderLeftColor'];
 const GB_SPACING_SCOPE = ['marginTop', 'marginRight', 'marginBottom', 'marginLeft', 'columnGap', 'rowGap', 'paddingLeft', 'paddingBottom', 'paddingRight', 'paddingTop'];
 const GB_RADIUS_SCOPE = ['borderTopLeftRadius', 'borderTopRightRadius', 'borderBottomRightRadius', 'borderBottomLeftRadius'];
 const GB_KINDS = [
-	{ coll: 'palette', kind: 'color', type: 'color', value: 'color', preset: 'color', category: 'Colors', scope: GB_COLOR_SCOPE, control: 'colorPicker' },
 	{ coll: 'fontSizes', kind: 'font-size', type: 'unit', value: 'size', preset: 'font-size', category: 'Typography', scope: ['fontSize'], control: 'unitControl' },
 	{ coll: 'spacingSizes', kind: 'spacing', type: 'unit', value: 'size', preset: 'spacing', category: 'Spacing', scope: GB_SPACING_SCOPE, control: 'unitControl' },
 	{ coll: 'radiusSizes', kind: 'radius', type: 'unit', value: 'size', preset: null, category: 'Radius', scope: GB_RADIUS_SCOPE, control: 'unitControl' },

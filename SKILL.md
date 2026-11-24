@@ -98,9 +98,9 @@ Names: `slug` comes from the variable path, `name` is the title-cased slug (nume
 
 Only when the user asks (or uses GenerateBlocks Pro 2.8+ and wants it). Add `--gb-out <dir>` to the
 same command: it also generates a GenerateBlocks design-system import file and a CSS Mode snippet
-from the same Figma tokens. Default `--gb-mode values` (literal values, color previews work);
-`--gb-mode alias` points tokens at the theme.json presets instead (single source of truth, but the
-swatch preview stays blank in GenerateBlocks). Files are written only with `--apply`, with a timestamp in the name so they never overwrite each other; the folder is `--gb-out` or config `generateblocks.outDir`. Details,
+from the same Figma tokens
+(not colors: GenerateBlocks already syncs theme.json colors with its color picker). Default `--gb-mode values` (literal values);
+`--gb-mode alias` points tokens at the theme.json presets instead (single source of truth). Files are written only with `--apply`, with a timestamp in the name so they never overwrite each other; the folder is `--gb-out` or config `generateblocks.outDir`. Details,
 naming, mapping, caveats (import only adds missing tokens; update values via CSS Mode):
 `references/generateblocks-tokens.md`.
 
