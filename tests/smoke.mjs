@@ -76,4 +76,15 @@ fs.writeFileSync(theme3, before);
 fs.writeFileSync(path.join(ordDir, 'figma-sync.config.json'), '{ "order": "theme" }');
 sync3();
 assert.deepEqual(read3().color.palette.map((e) => e.slug), ['mine', 'b', 'a', 'c'], 'theme order');
+// variables added to a group later stay with that group, as in the Figma panel
+const grpDir = path.join(dir, 'groups');
+fs.mkdirSync(grpDir);
+const theme4 = path.join(grpDir, 'theme.json');
+fs.writeFileSync(theme4, '{ "settings": {} }\n');
+const names = ['primary/100', 'secondary/100', 'neutral/100', 'neutral/200', 'secondary/300', 'primary/300', 'base'];
+const grpTokens = path.join(grpDir, 't.json');
+fs.writeFileSync(grpTokens, JSON.stringify({ collections: [{ name: 'Colors', modes: ['Default'], variables: names.map((n) => col(n, '#123456')) }] }));
+execFileSync('node', [sync, '--theme', theme4, '--tokens', grpTokens, '--apply']);
+assert.deepEqual(JSON.parse(fs.readFileSync(theme4, 'utf8')).settings.color.palette.map((e) => e.slug),
+	['base', 'primary-100', 'primary-300', 'secondary-100', 'secondary-300', 'neutral-100', 'neutral-200'], 'grouped order');
 console.log('smoke test passed');

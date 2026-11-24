@@ -425,6 +425,24 @@ function scanRefs(dir, themePath, mergedText, merged, collections) {
 	return [...missing].map(([k, files]) => { const [preset, slug] = k.split('\u0000'); return { preset, slug, files: [...files] }; });
 }
 
+/* The Plugin API lists variables roughly in creation order, but the Variables panel shows each group
+   together: ungrouped variables first, then groups in order of first appearance, recursively. A variable
+   added to a group later must stay inside that group. */
+function panelOrder(variables) {
+	const tree = () => ({ own: [], groups: new Map() });
+	const root = tree();
+	for (const v of variables) {
+		let node = root;
+		for (const g of v.name.split('/').slice(0, -1)) {
+			if (!node.groups.has(g)) node.groups.set(g, tree());
+			node = node.groups.get(g);
+		}
+		node.own.push(v);
+	}
+	const flat = (node) => [...node.own, ...[...node.groups.values()].flatMap(flat)];
+	return flat(root);
+}
+
 /* --------------------------------------------- Figma tokens -> theme.json */
 // Each rule routes Figma variables to one managed collection (`to`) by variable type,
 // top-level group name and collection name. Override per rule in figma-sync.config.json
@@ -539,7 +557,7 @@ function tokensToSource(tokens, rules, collections, userCfg) {
 	};
 
 	const source = {}, stats = new Map(), excluded = new Map(), unmapped = [];
-	for (const c of cols) for (const v of c.variables ?? []) {
+	for (const c of cols) for (const v of panelOrder(c.variables ?? [])) {
 		const type = norm(v.type), seg = v.name.split('/');
 		let hit = null, blockedBy = null;
 		for (const r of rules) {
